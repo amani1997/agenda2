@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node --require @babel/polyfill --require @babel/register ./server/server.js ",
     "test": "nyc mocha server/test --require @babel/polyfill --require @babel/register --timeout 10000 --exit",
-    "build": "babel ./server/server.js --out-dir build",
     "coverage": "nyc npm run test && nyc report --reporter=text-lcov | coveralls",
     "dev-start": "babel-watch ./server/server.js",
     "showCoverage": "start coverage/server/index.html"
