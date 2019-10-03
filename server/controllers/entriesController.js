@@ -60,5 +60,45 @@ class putInEntries {
       return res.status(400).send(error);
     }
   }
+  getAllEntries = async (req, res) => {
+    try {
+    const allEntries = await service.getAllService();
+    if(!allEntries){
+      return res.status(404).send({
+        status: 404,
+          error: 'you do not have any entries now'
+     });
+    }
+      return res.status(200).send({
+        status: 200,
+          data: allEntries
+     });
+    } catch(error) {
+      return res.status(500).send({
+        status: 500,
+        error: `something went wrong  ${error} `
+      });
+    }
+  }
+  getOneEntries = async (req, res) => {
+    try {
+      const oneEntries = await service.getOneService(req.params.entryid);
+      if (!oneEntries) {
+        return res.status(403).send({
+          status: 403,
+          error: "entries you try to access is not found"
+        });
+      }
+      return res.status(200).send({
+        status: 200,
+        data: oneEntries
+     });
+    } catch(error) {
+      return res.status(404).send({
+        status: 404,
+        error: `something goes wrong ${error}`
+      });
+    }
+  }
 }
 export default new putInEntries();

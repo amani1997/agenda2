@@ -13,5 +13,6 @@ router.post('/signin', login);
 router.post('/entries',verify.verifyToken, entries.fillEntries);
 router.patch('/entries/:entryid',verify.verifyToken, entries.update);
 router.delete('/entries/:entryid',verify.verifyToken, entries.delete);
-
+router.get('/entries',verify.verifyToken, entries.getAllEntries);
+router.get('/entries/:entryid',verify.verifyToken, entries.getOneEntries)
 export default router; 

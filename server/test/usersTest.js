@@ -124,4 +124,45 @@ describe('test for entries creation', () => {
             done();
           });
       });
+      it('should return error if id of entry doesnot exist', (done) => {
+        chai
+          .request(server)
+          .get('/api/v2/auth/entries/0')
+          .set('accept', 'application/json')
+          .set('x-access-token', testData.token)
+          .end((err, res) => {
+            expect(res.body).to.be.an('object');
+            expect(res.status).to.equal(403);
+            expect(res.body.error).to.be.equal('entries you try to access is not found');
+            done();
+          });
+      });
+      it('should return all entries', (done) => {
+        chai
+          .request(server)
+          .get('/api/v2/auth/entries')
+          .set('accept', 'application/json')
+          .set('x-access-token', testData.token)
+          .send(testData.testData.newEntry)
+          .end((err, res) => {
+            expect(res.body).to.be.an('object');
+            expect(res.status).to.equal(200);
+            expect(res.body.data).to.be.an('Array');
+            done();
+          });
+      });
+      it('should return one entry', (done) => {
+        chai
+          .request(server)
+          .get('/api/v2/auth/entries/1')
+          .set('accept', 'application/json')
+          .set('x-access-token', testData.token)
+          .send(testData.testData.newEntry)
+          .end((err, res) => {
+            expect(res.body).to.be.an('object');
+            expect(res.status).to.equal(200);
+            expect(res.body.data).to.be.an('object');
+            done();
+          });
+      });
   });
